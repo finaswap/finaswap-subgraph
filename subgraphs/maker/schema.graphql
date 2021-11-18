@@ -3,8 +3,8 @@ type Maker @entity {
 	# Maker address
 	id: ID!
 
-	# Sushi served
-	sushiServed: BigInt!
+	# Fina served
+	finaServed: BigInt!
 	totalServings: BigDecimal!
 
 	# Servers
@@ -24,8 +24,8 @@ type Server @entity {
 	# Relation to maker
 	maker: Maker!
 
-	# Sushi served
-	sushiServed: BigInt!
+	# Fina served
+	finaServed: BigInt!
 	totalServings: BigDecimal!
 
 	# Servings related to the server
@@ -60,8 +60,8 @@ type Serving @entity {
 	# Amount 1
 	amount1: BigInt!
 
-	# Sushi served
-	amountSushi: BigInt!
+	# Fina served
+	amountFina: BigInt!
 
 	# Block
 	block: BigInt!

@@ -1,6 +1,6 @@
 specVersion: 0.0.3
 description: Exchange
-repository: https://github.com/sushiswap/sushiswap-subgraph
+repository: https://github.com/finaswap/finaswap-subgraph
 schema:
   file: ./schema.graphql
 dataSources:
@@ -20,9 +20,9 @@ dataSources:
         - User
       abis:
         - name: Factory
-          file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
+          file: ../../node_modules/@finaswap/core/build/abi/UniswapV2Factory.json
         - name: Pair
-          file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
+          file: ../../node_modules/@finaswap/core/build/abi/UniswapV2Pair.json
       eventHandlers:
         - event: PairCreated(indexed address,indexed address,address,uint256)
           handler: onPairCreated
@@ -41,9 +41,9 @@ templates:
         - User
       abis:
         - name: Pair
-          file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
+          file: ../../node_modules/@finaswap/core/build/abi/UniswapV2Pair.json
         - name: Factory
-          file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
+          file: ../../node_modules/@finaswap/core/build/abi/UniswapV2Factory.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: onTransfer

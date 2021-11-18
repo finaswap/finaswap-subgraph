@@ -1,11 +1,11 @@
-import { ACC_SUSHI_PRECISION, ADDRESS_ZERO, BIG_INT_ONE, BIG_INT_ZERO } from 'const'
+import { ACC_FNA_PRECISION, ADDRESS_ZERO, BIG_INT_ONE, BIG_INT_ZERO } from 'const'
 import {
   Deposit,
   EmergencyWithdraw,
   Harvest,
   LogPoolAddition,
   LogSetPool,
-  LogSushiPerSecond,
+  LogFinaPerSecond,
   LogUpdatePool,
   Withdraw,
 } from '../../generated/MiniChef/MiniChef'
@@ -62,20 +62,20 @@ export function logUpdatePool(event: LogUpdatePool): void {
     event.params.pid.toString(),
     event.params.lastRewardTime.toString(), //uint64, I think this is Decimal but not sure
     event.params.lpSupply.toString(),
-    event.params.accSushiPerShare.toString(),
+    event.params.accFinaPerShare.toString(),
   ])
   const pool = getPool(event.params.pid, event.block)
-  pool.accSushiPerShare = event.params.accSushiPerShare
+  pool.accFinaPerShare = event.params.accFinaPerShare
   pool.lastRewardTime = event.params.lastRewardTime
   pool.save()
 }
 
-export function logSushiPerSecond(event: LogSushiPerSecond): void {
-  log.info('[MiniChef] Log Sushi Per Second {}', [event.params.sushiPerSecond.toString()])
+export function logFinaPerSecond(event: LogFinaPerSecond): void {
+  log.info('[MiniChef] Log Fina Per Second {}', [event.params.finaPerSecond.toString()])
 
   const miniChef = getMiniChef(event.block)
 
-  miniChef.sushiPerSecond = event.params.sushiPerSecond
+  miniChef.finaPerSecond = event.params.finaPerSecond
   miniChef.save()
 }
 
@@ -93,7 +93,7 @@ export function deposit(event: Deposit): void {
   pool.save()
 
   user.amount = user.amount.plus(event.params.amount)
-  user.rewardDebt = user.rewardDebt.plus(event.params.amount.times(pool.accSushiPerShare).div(ACC_SUSHI_PRECISION))
+  user.rewardDebt = user.rewardDebt.plus(event.params.amount.times(pool.accFinaPerShare).div(ACC_FNA_PRECISION))
   user.save()
 }
 
@@ -112,7 +112,7 @@ export function withdraw(event: Withdraw): void {
   pool.save()
 
   user.amount = user.amount.minus(event.params.amount)
-  user.rewardDebt = user.rewardDebt.minus(event.params.amount.times(pool.accSushiPerShare).div(ACC_SUSHI_PRECISION))
+  user.rewardDebt = user.rewardDebt.minus(event.params.amount.times(pool.accFinaPerShare).div(ACC_FNA_PRECISION))
   user.save()
 }
 
@@ -145,9 +145,9 @@ export function harvest(event: Harvest): void {
   const pool = getPool(event.params.pid, event.block)
   const user = getUser(event.params.user, event.params.pid, event.block)
 
-  const accumulatedSushi = user.amount.times(pool.accSushiPerShare).div(ACC_SUSHI_PRECISION)
+  const accumulatedFina = user.amount.times(pool.accFinaPerShare).div(ACC_FNA_PRECISION)
 
-  user.rewardDebt = accumulatedSushi
-  user.sushiHarvested = user.sushiHarvested.plus(event.params.amount)
+  user.rewardDebt = accumulatedFina
+  user.finaHarvested = user.finaHarvested.plus(event.params.amount)
   user.save()
 }

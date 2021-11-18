@@ -11,8 +11,8 @@ import { ComplexRewarder as ComplexRewarderContract } from '../../generated/Mast
 import { ConvexRewarder as ConvexRewarderContract } from '../../generated/MasterChefV2/ConvexRewarder'
 import { CloneRewarderTime as CloneRewarderTimeContract } from '../../generated/templates/CloneRewarderTime/CloneRewarderTime'
 import { CloneRewarderTime as CloneRewarderTimeTemplate } from '../../generated/templates'
-import { StakingRewardsSushi as StakingRewardsContract} from '../../generated/templates/StakingRewardsSushi/StakingRewardsSushi'
-import { StakingRewardsSushi as StakingRewardsTemplate } from '../../generated/templates'
+import { StakingRewardsFina as StakingRewardsContract} from '../../generated/templates/StakingRewardsFina/StakingRewardsFina'
+import { StakingRewardsFina as StakingRewardsTemplate } from '../../generated/templates'
 import { Rewarder } from '../../generated/schema'
 
 export function getRewarder(address: Address, block: ethereum.Block): Rewarder {

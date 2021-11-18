@@ -5,10 +5,10 @@ type MiniChef @entity {
   #owner: Bytes!
   #migrator: Bytes!
 
-  sushi: Bytes!
-  sushiPerSecond: BigInt!
+  fina: Bytes!
+  finaPerSecond: BigInt!
   totalAllocPoint: BigInt!
-  #acc_sushi_precision prob better as constant
+  #acc_fina_precision prob better as constant
   #startBlock idk if we need this
 
   pools: [Pool!] @derivedFrom(field: "miniChef")
@@ -30,7 +30,7 @@ type Pool @entity {
 
   allocPoint: BigInt!
   lastRewardTime: BigInt!
-  accSushiPerShare: BigInt!
+  accFinaPerShare: BigInt!
 
   slpBalance: BigInt!
 
@@ -60,7 +60,7 @@ type User @entity {
 
   amount: BigInt!
   rewardDebt: BigInt!
-  sushiHarvested: BigInt!
+  finaHarvested: BigInt!
 
   timestamp: BigInt!
   block: BigInt!

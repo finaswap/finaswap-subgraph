@@ -1,6 +1,6 @@
 specVersion: 0.0.3
 description: MiniChef
-repository: https://github.com/sushiswap/sushiswap-subgraph
+repository: https://github.com/finaswap/finaswap-subgraph
 schema:
   file: ./schema.graphql
 dataSources:
@@ -29,11 +29,11 @@ dataSources:
         - name: CloneRewarderTime
           file: ./packages/abis/CloneRewarderTime.json
         - name: Factory
-          file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
+          file: ../../node_modules/@finaswap/core/build/abi/UniswapV2Factory.json
         - name: Pair
-          file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
+          file: ../../node_modules/@finaswap/core/build/abi/UniswapV2Pair.json
         - name: ERC20
-          file: ../../node_modules/@sushiswap/core/build/abi/ERC20.json
+          file: ../../node_modules/@finaswap/core/build/abi/ERC20.json
       eventHandlers:
         - event: Deposit(indexed address,indexed uint256,uint256,indexed address)
           handler: deposit
@@ -49,8 +49,8 @@ dataSources:
           handler: logSetPool
         - event: LogUpdatePool(indexed uint256,uint64,uint256,uint256)
           handler: logUpdatePool
-        - event: LogSushiPerSecond(uint256)
-          handler: logSushiPerSecond
+        - event: LogFinaPerSecond(uint256)
+          handler: logFinaPerSecond
 templates:
   - kind: ethereum/contract
     name: ComplexRewarderTime

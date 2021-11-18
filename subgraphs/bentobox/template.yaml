@@ -1,6 +1,6 @@
 specVersion: 0.0.3
 description: BentoBox
-repository: https://github.com/sushiswap/sushiswap-subgraph
+repository: https://github.com/finaswap/finaswap-subgraph
 schema:
   file: ./schema.graphql
 dataSources:
@@ -37,7 +37,7 @@ dataSources:
         - name: KashiPair
           file: ./packages/abis/KashiPair.json
         - name: ERC20
-          file: ../../node_modules/@sushiswap/core/build/abi/ERC20.json
+          file: ../../node_modules/@finaswap/core/build/abi/ERC20.json
         - name: ERC20SymbolBytes
           file: ../../packages/abis/ERC20SymbolBytes.json
         - name: ERC20NameBytes

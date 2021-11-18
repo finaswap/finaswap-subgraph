@@ -30,9 +30,9 @@ export const LOCKUP_BLOCK_NUMBER = BigInt.fromI32(10959148)
 
 export const MASTER_CHEF_START_BLOCK = BigInt.fromI32(10750000)
 
-export const UNISWAP_SUSHI_ETH_PAIR_FIRST_LIQUDITY_BLOCK = BigInt.fromI32(10750005)
+export const UNISWAP_FNA_ETH_PAIR_FIRST_LIQUDITY_BLOCK = BigInt.fromI32(10750005)
 
-export const ACC_SUSHI_PRECISION = BigInt.fromString('1000000000000')
+export const ACC_FNA_PRECISION = BigInt.fromString('1000000000000')
 
 export const BENTOBOX_DEPOSIT = 'deposit'
 
@@ -64,31 +64,31 @@ export const MASTER_CHEF_ADDRESS = Address.fromString(
 
 export const MASTER_CHEF_V2_ADDRESS = Address.fromString('0xef0881ec094552b2e128cf945ef17a6752b4ec5d')
 
-export const SUSHI_BAR_ADDRESS = Address.fromString(
+export const FINA_LOUNGE_ADDRESS = Address.fromString(
   '0x8798249c2e607446efb7ad49ec89dd1865ff4272'
 )
 
-export const SUSHI_MAKER_ADDRESS = Address.fromString(
+export const FINA_CHIEF_ADDRESS = Address.fromString(
   '0xe11fc0b43ab98eb91e9836129d1ee7c3bc95df50'
 )
 
-export const SUSHI_TOKEN_ADDRESS = Address.fromString(
+export const FNA_TOKEN_ADDRESS = Address.fromString(
   '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2'
 )
 
-export const SUSHI_USDT_PAIR_ADDRESS = Address.fromString(
+export const FNA_USDT_PAIR_ADDRESS = Address.fromString(
   '0x680a025da7b1be2c204d7745e809919bce074026'
 )
 
-export const XSUSHI_USDC_PAIR_ADDRESS = Address.fromString(
+export const XFNA_USDC_PAIR_ADDRESS = Address.fromString(
   '0xd597924b16cc1904d808285bc9044fd51ceeead7'
 )
 
-export const XSUSHI_WETH_PAIR_ADDRESS = Address.fromString(
+export const XFNA_WETH_PAIR_ADDRESS = Address.fromString(
   '0x36e2fcccc59e5747ff63a03ea2e5c0c2c14911e7'
 )
 
-export const SUSHI_DISTRIBUTOR_ADDRESS = Address.fromString(
+export const FNA_DISTRIBUTOR_ADDRESS = Address.fromString(
   '0xcbe6b83e77cdc011cc18f6f0df8444e5783ed982'
 )
 
@@ -101,7 +101,7 @@ export const DAI_WETH_PAIR =
 export const USDT_WETH_PAIR =
   '0x06da0fd433c1a5d7a4faa01111c044910a184553'
 
-export const SUSHI_USDT_PAIR =
+export const FNA_USDT_PAIR =
   '0x680a025da7b1be2c204d7745e809919bce074026'
 
 // minimum liquidity required to count towards tracked volume for pairs with small # of Lps
@@ -116,7 +116,7 @@ export const WETH_ADDRESS = Address.fromString(
   '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
 )
 
-export const SUSHISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString(
+export const FINASWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString(
   '0x06da0fd433c1a5d7a4faa01111c044910a184553'
 )
 
@@ -132,11 +132,11 @@ export const UNISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString(
   '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852'
 )
 
-export const UNISWAP_SUSHI_ETH_PAIR_ADDRESS = Address.fromString(
+export const UNISWAP_FNA_ETH_PAIR_ADDRESS = Address.fromString(
   '0xce84867c3c02b05dc570d0135103d3fb9cc19433'
 )
 
-export const UNISWAP_SUSHI_USDT_PAIR_ADDRESS = Address.fromString(
+export const UNISWAP_FNA_USDT_PAIR_ADDRESS = Address.fromString(
   '0xe3ffab89e53422f468be955e7011932efe80aa26'
 )
 

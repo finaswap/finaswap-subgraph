@@ -1,6 +1,6 @@
 specVersion: 0.0.3
 description: MasterChefV2
-repository: https://github.com/sushiswap/sushiswap-subgraph
+repository: https://github.com/finaswap/finaswap-subgraph
 schema:
   file: ./schema.graphql
 dataSources:
@@ -30,14 +30,14 @@ dataSources:
           file: ./packages/abis/ComplexRewarder.json
         - name: CloneRewarderTime
           file: ./packages/abis/CloneRewarderTime.json
-        - name: StakingRewardsSushi
-          file: ./packages/abis/StakingRewardsSushi.json
+        - name: StakingRewardsFina
+          file: ./packages/abis/StakingRewardsFina.json
         - name: Factory
-          file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
+          file: ../../node_modules/@finaswap/core/build/abi/UniswapV2Factory.json
         - name: Pair
-          file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
+          file: ../../node_modules/@finaswap/core/build/abi/UniswapV2Pair.json
         - name: ERC20
-          file: ../../node_modules/@sushiswap/core/build/abi/ERC20.json
+          file: ../../node_modules/@finaswap/core/build/abi/ERC20.json
       eventHandlers:
         - event: Deposit(indexed address,indexed uint256,uint256,indexed address)
           handler: deposit
@@ -73,10 +73,10 @@ templates:
         - event: LogRewardPerSecond(uint256)
           handler: logRewardPerSecond
   - kind: ethereum/contract
-    name: StakingRewardsSushi
+    name: StakingRewardsFina
     network: {{ network }}
     source:
-      abi: StakingRewardsSushi
+      abi: StakingRewardsFina
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -85,8 +85,8 @@ templates:
       entities:
         - Rewarder
       abis:
-        - name: StakingRewardsSushi
-          file: ./packages/abis/StakingRewardsSushi.json
+        - name: StakingRewardsFina
+          file: ./packages/abis/StakingRewardsFina.json
       eventHandlers:
         - event: RewardAdded(uint256)
           handler: rewardAdded

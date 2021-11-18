@@ -5,7 +5,7 @@
   "usdc_weth_pair": "0x4ed65dab34d5fd4b1eb384432027ce47e90e1185",
   "dai_weth_pair": "0x55cf10bfbc6a9deaeb3c7ec0dd96d3c1179cb948",
   "usdt_weth_pair": "0x09657b445df5bf0141e3ef0f5276a329fc01de01",
-  "sushi_address": "0x39cf1bd5f15fb22ec3d9ff86b0727afc203427cc",
+  "fina_address": "0x39cf1bd5f15fb22ec3d9ff86b0727afc203427cc",
   "weth_address": "0x49d5c2bdffac6ce2bfdb6640f4f80f226bc10bab",
   "native_address": "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7",
   "usdc_address": "0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664",

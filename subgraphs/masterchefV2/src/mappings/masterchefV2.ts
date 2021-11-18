@@ -17,7 +17,7 @@ import {
   BIG_INT_ONE_DAY_SECONDS,
   BIG_INT_ZERO,
   MASTER_CHEF_V2_ADDRESS,
-  ACC_SUSHI_PRECISION
+  ACC_FNA_PRECISION
 } from 'const'
 import { MasterChef, Pool, User, Rewarder } from '../../generated/schema'
 
@@ -81,14 +81,14 @@ export function logUpdatePool(event: LogUpdatePool): void {
     event.params.pid.toString(),
     event.params.lastRewardBlock.toString(),
     event.params.lpSupply.toString(),
-    event.params.accSushiPerShare.toString()
+    event.params.accFinaPerShare.toString()
   ])
 
   const masterChef = getMasterChef(event.block)
   const pool = getPool(event.params.pid, event.block)
   updateRewarder(Address.fromString(pool.rewarder))
 
-  pool.accSushiPerShare = event.params.accSushiPerShare
+  pool.accFinaPerShare = event.params.accFinaPerShare
   pool.lastRewardBlock = event.params.lastRewardBlock
   pool.save()
 }
@@ -109,7 +109,7 @@ export function deposit(event: Deposit): void {
   pool.save()
 
   user.amount = user.amount.plus(event.params.amount)
-  user.rewardDebt = user.rewardDebt.plus(event.params.amount.times(pool.accSushiPerShare).div(ACC_SUSHI_PRECISION))
+  user.rewardDebt = user.rewardDebt.plus(event.params.amount.times(pool.accFinaPerShare).div(ACC_FNA_PRECISION))
   user.save()
 }
 
@@ -129,7 +129,7 @@ export function withdraw(event: Withdraw): void {
   pool.save()
 
   user.amount = user.amount.minus(event.params.amount)
-  user.rewardDebt = user.rewardDebt.minus(event.params.amount.times(pool.accSushiPerShare).div(ACC_SUSHI_PRECISION))
+  user.rewardDebt = user.rewardDebt.minus(event.params.amount.times(pool.accFinaPerShare).div(ACC_FNA_PRECISION))
   user.save()
 }
 
@@ -160,9 +160,9 @@ export function harvest(event: Harvest): void {
   const pool = getPool(event.params.pid, event.block)
   const user = getUser(event.params.user, event.params.pid, event.block)
 
-  let accumulatedSushi = user.amount.times(pool.accSushiPerShare).div(ACC_SUSHI_PRECISION)
+  let accumulatedFina = user.amount.times(pool.accFinaPerShare).div(ACC_FNA_PRECISION)
 
-  user.rewardDebt = accumulatedSushi
-  user.sushiHarvested = user.sushiHarvested.plus(event.params.amount)
+  user.rewardDebt = accumulatedFina
+  user.finaHarvested = user.finaHarvested.plus(event.params.amount)
   user.save()
 }

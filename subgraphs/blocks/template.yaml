@@ -1,6 +1,6 @@
 specVersion: 0.0.2
 description: Blocks
-repository: https://github.com/sushiswap/sushiswap-subgraph
+repository: https://github.com/finaswap/finaswap-subgraph
 schema:
   file: ./schema.graphql
 dataSources:
@@ -19,7 +19,7 @@ dataSources:
         - UniswapV2Pair
       abis:
         - name: UniswapV2Factory
-          file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
+          file: ../../node_modules/@finaswap/core/build/abi/UniswapV2Factory.json
       blockHandlers:
         - handler: handleBlock
       file: ./src/mappings/blocks.ts

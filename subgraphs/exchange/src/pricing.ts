@@ -8,7 +8,7 @@ import {
   FACTORY_ADDRESS,
   MINIMUM_LIQUIDITY_THRESHOLD_ETH,
   NATIVE,
-  SUSHI_USDT_PAIR,
+  FNA_USDT_PAIR,
   USDC,
   USDC_WETH_PAIR,
   USDT,
@@ -25,8 +25,8 @@ import { Pair as PairContract } from '../generated/templates/Pair/Pair'
 
 export const factoryContract = FactoryContract.bind(FACTORY_ADDRESS)
 
-export function getSushiPrice(): BigDecimal {
-  const pair = Pair.load(SUSHI_USDT_PAIR)
+export function getFinaPrice(): BigDecimal {
+  const pair = Pair.load(FNA_USDT_PAIR)
 
   if (pair) {
     return pair.token1Price
@@ -38,7 +38,7 @@ export function getSushiPrice(): BigDecimal {
 export function getEthPrice(block: ethereum.Block = null): BigDecimal {
   // TODO: We can can get weighted averages, but this will do for now.
   // If block number is less than or equal to the last stablecoin migration (ETH-USDT), use uniswap eth price.
-  // After this last migration, we can use sushiswap pricing.
+  // After this last migration, we can use finaswap pricing.
   /*if (block !== null && block.number.le(BigInt.fromI32(10829344))) {
     // Uniswap Factory
     const uniswapFactory = FactoryContract.bind(Address.fromString('0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f'))

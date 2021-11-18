@@ -3,11 +3,11 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: SushiDistributor
+    name: FinaDistributor
     network: {{ network }}
     source:
       address: '{{ address }}'
-      abi: SushiDistributor
+      abi: FinaDistributor
       startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
@@ -16,8 +16,8 @@ dataSources:
       entities:
         - Claimed
       abis:
-        - name: SushiDistributor
-          file: ../../packages/abis/SushiDistributor.json
+        - name: FinaDistributor
+          file: ../../packages/abis/FinaDistributor.json
       eventHandlers:
         - event: Claimed(uint256,uint256,indexed address,indexed uint256)
           handler: handleClaimed

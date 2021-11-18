@@ -2,18 +2,18 @@ import { Address, log } from '@graphprotocol/graph-ts'
 import { FACTORY_ADDRESS, BIG_DECIMAL_ONE } from 'const'
 import { getMaker, getServer } from '../entities'
 import { Serving } from '../../generated/schema'
-import { Factory as FactoryContract } from '../../generated/SushiMaker/Factory'
-import { LogConvert } from '../../generated/SushiMaker/SushiMaker'
+import { Factory as FactoryContract } from '../../generated/FinaChief/Factory'
+import { LogConvert } from '../../generated/FinaChief/FinaChief'
 
 
 export function handleLogConvert(event: LogConvert): void {
-  log.info('[SushiMaker] Log Convert {} {} {} {} {} {}', [
+  log.info('[FinaChief] Log Convert {} {} {} {} {} {}', [
     event.params.server.toHex(),
     event.params.token0.toHex(),
     event.params.token1.toHex(),
     event.params.amount0.toString(),
     event.params.amount1.toString(),
-    event.params.amountSUSHI.toString()
+    event.params.amountFNA.toString()
   ])
 
   const maker = getMaker(event.block)
@@ -32,16 +32,16 @@ export function handleLogConvert(event: LogConvert): void {
   serving.token1 = event.params.token1
   serving.amount0 = event.params.amount0
   serving.amount1 = event.params.amount1
-  serving.amountSushi = event.params.amountSUSHI
+  serving.amountFina = event.params.amountFNA
   serving.block = event.block.number
   serving.timestamp = event.block.timestamp
   serving.save()
 
-  maker.sushiServed = maker.sushiServed.plus(event.params.amountSUSHI)
+  maker.finaServed = maker.finaServed.plus(event.params.amountFNA)
   maker.totalServings = maker.totalServings.plus(BIG_DECIMAL_ONE)
   maker.save()
 
-  server.sushiServed = server.sushiServed.plus(event.params.amountSUSHI)
+  server.finaServed = server.finaServed.plus(event.params.amountFNA)
   server.totalServings = server.totalServings.plus(BIG_DECIMAL_ONE)
   server.save()
 }

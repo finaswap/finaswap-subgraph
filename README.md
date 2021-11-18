@@ -1,38 +1,38 @@
-# SushiSwap Subgraph
+# FinaSwap Subgraph
 
-Aims to deliver analytics & historical data for SushiSwap. Still a work in progress. Feel free to contribute!
+Aims to deliver analytics & historical data for FinaSwap. Still a work in progress. Feel free to contribute!
 
-The Graph exposes a GraphQL endpoint to query the events and entities within the SushiSwap ecosytem.
+The Graph exposes a GraphQL endpoint to query the events and entities within the FinaSwap ecosytem.
 
 Current subgraph locations:
 
-1. **Exchange**: Includes all SushiSwap Exchange data with Price Data, Volume, Users, etc:
-   + https://thegraph.com/explorer/subgraph/sushiswap/exchange (mainnet)
-   + https://thegraph.com/explorer/subgraph/sushiswap/bsc-exchange (bsc)
+1. **Exchange**: Includes all FinaSwap Exchange data with Price Data, Volume, Users, etc:
+   + https://thegraph.com/explorer/subgraph/finaswap/exchange (mainnet)
+   + https://thegraph.com/explorer/subgraph/finaswap/bsc-exchange (bsc)
    + https://q.hg.network/okex-exchange/oec (okex)
-   + https://thegraph.com/explorer/subgraph/sushiswap/xdai-exchange (xdai)
+   + https://thegraph.com/explorer/subgraph/finaswap/xdai-exchange (xdai)
    + https://q.hg.network/heco-exchange/heco (heco)
-   + https://thegraph.com/explorer/subgraph/sushiswap/matic-exchange (matic)
-   + https://thegraph.com/explorer/subgraph/sushiswap/fantom-exchange (fantom)
-   + https://thegraph.com/explorer/subgraph/sushiswap/arbitrum-exchange (arbitrum)
-   + https://thegraph.com/explorer/subgraph/sushiswap/celo-exchange (celo)
-   + https://thegraph.com/explorer/subgraph/sushiswap/avalanche-exchange (avalanche)
-   + https://sushi.graph.t.hmny.io/subgraphs/name/sushiswap/harmony-exchange (harmony)
+   + https://thegraph.com/explorer/subgraph/finaswap/matic-exchange (matic)
+   + https://thegraph.com/explorer/subgraph/finaswap/fantom-exchange (fantom)
+   + https://thegraph.com/explorer/subgraph/finaswap/arbitrum-exchange (arbitrum)
+   + https://thegraph.com/explorer/subgraph/finaswap/celo-exchange (celo)
+   + https://thegraph.com/explorer/subgraph/finaswap/avalanche-exchange (avalanche)
+   + https://fina.graph.t.hmny.io/subgraphs/name/finaswap/harmony-exchange (harmony)
 
-2. **Master Chef**: Indexes all MasterChef staking data: https://thegraph.com/explorer/subgraph/sushiswap/master-chef
+2. **Master Chef**: Indexes all MasterChef staking data: https://thegraph.com/explorer/subgraph/finaswap/master-chef
 
-3. **Sushi Maker**: Indexes the SushiMaker contract, that handles the serving of exchange fees to the SushiBar: https://thegraph.com/explorer/subgraph/sushiswap/sushi-maker
+3. **Fina Chief**: Indexes the FinaChief contract, that handles the serving of exchange fees to the FinaLounge: https://thegraph.com/explorer/subgraph/finaswap/fina-maker
 
-4. **Sushi Timelock**: Includes all of the timelock transactions queued, executed, and cancelled: https://thegraph.com/explorer/subgraph/sushiswap/sushi-timelock
+4. **Fina Timelock**: Includes all of the timelock transactions queued, executed, and cancelled: https://thegraph.com/explorer/subgraph/finaswap/fina-timelock
 
-5. **Sushi Bar**: Indexes the SushiBar, includes data related to the bar: https://thegraph.com/explorer/subgraph/sushiswap/sushi-bar
+5. **Fina Lounge**: Indexes the FinaLounge, includes data related to the bar: https://thegraph.com/explorer/subgraph/finaswap/fina-bar
 
-6. **SushiSwap-SubGraph-Fork** (on uniswap-fork branch): Indexes the SushiSwap Factory, includes Price Data, Pricing, etc: https://thegraph.com/explorer/subgraph/jiro-ono/sushiswap-v1-exchange
+6. **FinaSwap-SubGraph-Fork** (on uniswap-fork branch): Indexes the FinaSwap Factory, includes Price Data, Pricing, etc: https://thegraph.com/explorer/subgraph/jiro-ono/finaswap-v1-exchange
 
-7. **BentoBox**: Indexes BentoBox and Kashi Lending data: https://thegraph.com/explorer/subgraph/sushiswap/bentobox
+7. **BentoBox**: Indexes BentoBox and Kashi Lending data: https://thegraph.com/explorer/subgraph/finaswap/bentobox
 
 8. **MiniChef**: Indexes MiniChef contracts that are used in place of MasterChefs for alternate networks:
-  + https://thegraph.com/explorer/subgraph/sushiswap/matic-minichef
+  + https://thegraph.com/explorer/subgraph/finaswap/matic-minichef
 
 ## To setup and deploy
 
@@ -49,7 +49,7 @@ For any of the subgraphs follow below steps
 > So to ensure successful run for `prepare:[network]` command, `network` of your interest, all subgraphs should have this command.
 ## To query these subgraphs
 
-Please use our node utility: [sushi-data](https://github.com/sushiswap/sushi-data).
+Please use our node utility: [fina-data](https://github.com/finaswap/fina-data).
 
 Note: This is in on going development as well.
 
@@ -72,14 +72,14 @@ We will add to this as development progresses.
       pair
       token0
       token1
-      sushiServed
+      finaServed
       block
       timestamp
     }
   }
   servers {
     id
-    sushiServed
+    finaServed
     servings(orderBy: timestamp) {
       id
       server {
@@ -89,7 +89,7 @@ We will add to this as development progresses.
       pair
       token0
       token1
-      sushi
+      fina
       block
       timestamp
     }
@@ -99,5 +99,5 @@ We will add to this as development progresses.
 
 # Community Subgraphs
 
-1) croco-finance fork of this repo with slight modifications - [deployment](https://thegraph.com/explorer/subgraph/benesjan/sushi-swap), [code](https://github.com/croco-finance/sushiswap-subgraph)
+1) croco-finance fork of this repo with slight modifications - [deployment](https://thegraph.com/explorer/subgraph/benesjan/fina-swap), [code](https://github.com/croco-finance/finaswap-subgraph)
 2) croco-finance dex-rewards-subgraph which tracks SLPs in MasterChef and all the corresponding rewards individually. (can be used for analysis of user's positions) - [deployment](https://thegraph.com/explorer/subgraph/benesjan/dex-rewards-subgraph), [code](https://github.com/croco-finance/dex-rewards-subgraph)

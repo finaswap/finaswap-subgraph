@@ -1,14 +1,14 @@
 specVersion: 0.0.2
-description: SushiMaker
+description: FinaChief
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: SushiMaker
+    name: FinaChief
     network: {{ network }}
     source:
       address: '{{ address }}'
-      abi: SushiMaker
+      abi: FinaChief
       startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
@@ -20,14 +20,14 @@ dataSources:
         - Server
         - Serving
       abis:
-        - name: SushiMaker
-          file: ../../node_modules/@sushiswap/core/build/abi/SushiMaker.json
+        - name: FinaChief
+          file: ../../node_modules/@finaswap/core/build/abi/FinaChief.json
         - name: Pair
-          file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
+          file: ../../node_modules/@finaswap/core/build/abi/UniswapV2Pair.json
         - name: ERC20
-          file: ../../node_modules/@sushiswap/core/build/abi/ERC20.json
+          file: ../../node_modules/@finaswap/core/build/abi/ERC20.json
         - name: Factory
-          file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
+          file: ../../node_modules/@finaswap/core/build/abi/UniswapV2Factory.json
       eventHandlers:
         - event: LogConvert(indexed address,indexed address,indexed address,uint256,uint256,uint256)
           handler: handleLogConvert
