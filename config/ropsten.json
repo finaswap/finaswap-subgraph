@@ -1,9 +1,9 @@
 {
     "network": "ropsten",
     "factory_address": "0xe724a28b19e1906f90e57a635138cc2401c56335",
-    "masterchef_address": "0xa1d10a75932642342371b15d9dfe09f2519cc995",
-    "fina_bar_address": "0xf1da0d3bbc1680fd892243d15cf5024c59d490ae",
-    "fina_maker_address": "0x768a73783a919107ae169e0901c9db691220e29d",
+    "finamaster_address": "0xa1d10a75932642342371b15d9dfe09f2519cc995",
+    "fina_lounge_address": "0xf1da0d3bbc1680fd892243d15cf5024c59d490ae",
+    "fina_chief_address": "0x768a73783a919107ae169e0901c9db691220e29d",
     "fina_address": "0x31b6ed8dc8ced0b5c7b9c0fdf3066f58d99b52e7",
     "weth_address": "0xc778417e063141139fce010982780140aa0cd5ab",
     "uniswap_factory_address": "0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f",

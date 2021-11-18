@@ -59,17 +59,17 @@ export const FACTORY_ADDRESS = Address.fromString(
 )
 
 export const MASTER_CHEF_ADDRESS = Address.fromString(
-  '{{ masterchef_address }}{{^masterchef_address}}0x0000000000000000000000000000000000000000{{/masterchef_address}}'
+  '{{ finamaster_address }}{{^finamaster_address}}0x0000000000000000000000000000000000000000{{/finamaster_address}}'
 )
 
 export const MASTER_CHEF_V2_ADDRESS = Address.fromString('0xef0881ec094552b2e128cf945ef17a6752b4ec5d')
 
 export const FINA_LOUNGE_ADDRESS = Address.fromString(
-  '{{ fina_bar_address }}{{^fina_bar_address}}0x0000000000000000000000000000000000000000{{/fina_bar_address}}'
+  '{{ fina_lounge_address }}{{^fina_lounge_address}}0x0000000000000000000000000000000000000000{{/fina_lounge_address}}'
 )
 
 export const FINA_CHIEF_ADDRESS = Address.fromString(
-  '{{ fina_maker_address }}{{^fina_maker_address}}0x0000000000000000000000000000000000000000{{/fina_maker_address}}'
+  '{{ fina_chief_address }}{{^fina_chief_address}}0x0000000000000000000000000000000000000000{{/fina_chief_address}}'
 )
 
 export const FNA_TOKEN_ADDRESS = Address.fromString(
