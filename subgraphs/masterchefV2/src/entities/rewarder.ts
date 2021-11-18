@@ -7,8 +7,8 @@ import {
 } from 'const'
 import { Address, ethereum } from '@graphprotocol/graph-ts'
 
-import { ComplexRewarder as ComplexRewarderContract } from '../../generated/MasterChefV2/ComplexRewarder'
-import { ConvexRewarder as ConvexRewarderContract } from '../../generated/MasterChefV2/ConvexRewarder'
+import { ComplexRewarder as ComplexRewarderContract } from '../../generated/FinaMasterV2/ComplexRewarder'
+import { ConvexRewarder as ConvexRewarderContract } from '../../generated/FinaMasterV2/ConvexRewarder'
 import { CloneRewarderTime as CloneRewarderTimeContract } from '../../generated/templates/CloneRewarderTime/CloneRewarderTime'
 import { CloneRewarderTime as CloneRewarderTimeTemplate } from '../../generated/templates'
 import { StakingRewardsFina as StakingRewardsContract} from '../../generated/templates/StakingRewardsFina/StakingRewardsFina'

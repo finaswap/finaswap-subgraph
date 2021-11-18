@@ -7,18 +7,18 @@ import {
   BIG_INT_ZERO,
   LOCKUP_BLOCK_NUMBER,
   LOCKUP_POOL_NUMBER,
-  MASTER_CHEF_ADDRESS,
+  FINA_MASTER_ADDRESS,
 } from 'const'
 import {
   Deposit,
-  MasterChef as MasterChefContract,
-  MasterChef__poolInfoResult,
+  FinaMaster as FinaMasterContract,
+  FinaMaster__poolInfoResult,
   SetCall,
   Withdraw,
-} from '../generated/MasterChef/MasterChef'
+} from '../generated/FinaMaster/FinaMaster'
 import { Lockup, Pool, User } from '../generated/schema'
 import { getFinaPrice } from 'pricing'
-import { Pair as PairContract } from '../generated/MasterChef/Pair'
+import { Pair as PairContract } from '../generated/FinaMaster/Pair'
 
 export function getUser(pid: BigInt, address: Address, block: ethereum.Block): User {
   const uid = address.toHex()
@@ -45,11 +45,11 @@ export function getPool(id: BigInt): Pool {
   let pool = Pool.load(id.toString())
 
   if (pool === null) {
-    const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
+    const finaMasterContract = FinaMasterContract.bind(FINA_MASTER_ADDRESS)
 
     // Create new pool.
     pool = new Pool(id.toString())
-    const poolInfo = masterChefContract.poolInfo(id)
+    const poolInfo = finaMasterContract.poolInfo(id)
     pool.allocPoint = poolInfo.value1
     pool.accFinaPerShare = poolInfo.value3
 
@@ -64,12 +64,12 @@ export function set(call: SetCall): void {
   if (call.inputs._pid == LOCKUP_POOL_NUMBER) {
     log.info('Alright stop, lockup time...', [])
 
-    const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
-    const poolLength = masterChefContract.poolLength()
+    const finaMasterContract = FinaMasterContract.bind(FINA_MASTER_ADDRESS)
+    const poolLength = finaMasterContract.poolLength()
 
     const lockup = new Lockup('0')
     lockup.poolLength = poolLength
-    lockup.totalAllocPoint = masterChefContract.totalAllocPoint()
+    lockup.totalAllocPoint = finaMasterContract.totalAllocPoint()
     lockup.save()
 
     log.info('Saved lockup entity, before loop. Pool length: {}', [poolLength.toString()])
@@ -77,9 +77,9 @@ export function set(call: SetCall): void {
     for (let i = BIG_INT_ZERO, j = poolLength; i < j; i = i.plus(BIG_INT_ONE)) {
       log.warning('Setting pool state at lockup for pid {}', [i.toString()])
 
-      let poolInfoResult: ethereum.CallResult<MasterChef__poolInfoResult> = masterChefContract.try_poolInfo(i)
+      let poolInfoResult: ethereum.CallResult<FinaMaster__poolInfoResult> = finaMasterContract.try_poolInfo(i)
 
-      let poolInfo: MasterChef__poolInfoResult = null
+      let poolInfo: FinaMaster__poolInfoResult = null
 
       if (!poolInfoResult.reverted) {
         poolInfo = poolInfoResult.value
@@ -92,17 +92,17 @@ export function set(call: SetCall): void {
       pool.lockup = lockup.id
       pool.allocPoint = poolInfo.value1
       pool.accFinaPerShare = poolInfo.value3
-      // pool.balance = pairContract.balanceOf(MASTER_CHEF_ADDRESS)
+      // pool.balance = pairContract.balanceOf(FINA_MASTER_ADDRESS)
       pool.save()
     }
   }
 }
 
 function transfer(pid: BigInt, userAddr: Address, block: ethereum.Block): void {
-  const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
+  const finaMasterContract = FinaMasterContract.bind(FINA_MASTER_ADDRESS)
   const user = getUser(pid, userAddr, block)
 
-  const poolInfo = masterChefContract.poolInfo(pid)
+  const poolInfo = finaMasterContract.poolInfo(pid)
   const pool = getPool(pid)
   pool.accFinaPerShare = poolInfo.value3
   pool.save()
@@ -121,7 +121,7 @@ function transfer(pid: BigInt, userAddr: Address, block: ethereum.Block): void {
       user.finaHarvestedSinceLockupUSD = user.finaHarvestedSinceLockupUSD.plus(finaHarvestedUSD)
     }
   }
-  const userInfo = masterChefContract.userInfo(pid, userAddr)
+  const userInfo = finaMasterContract.userInfo(pid, userAddr)
   user.amount = userInfo.value0
   user.rewardDebt = userInfo.value1
   user.save()

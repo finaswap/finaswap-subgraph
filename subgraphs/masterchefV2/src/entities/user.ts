@@ -1,11 +1,11 @@
 import { User } from '../../generated/schema'
 import { BigInt, Address, ethereum } from '@graphprotocol/graph-ts'
 import { BIG_INT_ZERO, BIG_INT_ONE, MINI_CHEF_ADDRESS } from 'const'
-import { getMasterChef } from './masterChef'
+import { getFinaMaster } from './finaMaster'
 import { getPool } from './pool'
 
 export function getUser(address: Address, pid: BigInt, block: ethereum.Block): User {
-  const masterChef = getMasterChef(block)
+  const finaMaster = getFinaMaster(block)
   const pool = getPool(pid, block)
 
   const uid = address.toHex()

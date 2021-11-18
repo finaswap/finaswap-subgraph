@@ -28,7 +28,7 @@ export const LOCKUP_POOL_NUMBER = BigInt.fromI32(29)
 
 export const LOCKUP_BLOCK_NUMBER = BigInt.fromI32(10959148)
 
-export const MASTER_CHEF_START_BLOCK = BigInt.fromI32(10750000)
+export const FINA_MASTER_START_BLOCK = BigInt.fromI32(10750000)
 
 export const UNISWAP_FNA_ETH_PAIR_FIRST_LIQUDITY_BLOCK = BigInt.fromI32(10750005)
 
@@ -58,11 +58,11 @@ export const FACTORY_ADDRESS = Address.fromString(
   '0xc0aee478e3658e2610c5f7a4a2e1777ce9e4f2ac'
 )
 
-export const MASTER_CHEF_ADDRESS = Address.fromString(
+export const FINA_MASTER_ADDRESS = Address.fromString(
   '0xc2edad668740f1aa35e4d8f227fb8e17dca888cd'
 )
 
-export const MASTER_CHEF_V2_ADDRESS = Address.fromString('0xef0881ec094552b2e128cf945ef17a6752b4ec5d')
+export const FINA_MASTER_V2_ADDRESS = Address.fromString('0xef0881ec094552b2e128cf945ef17a6752b4ec5d')
 
 export const FINA_LOUNGE_ADDRESS = Address.fromString(
   '0x8798249c2e607446efb7ad49ec89dd1865ff4272'

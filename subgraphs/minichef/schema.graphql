@@ -21,7 +21,7 @@ type MiniChef @entity {
 }
 
 type Pool @entity {
-  # Index of pool in poolInfo on MasterChef contract
+  # Index of pool in poolInfo on FinaMaster contract
   id: ID!
   miniChef: MiniChef!
   pair: Bytes!

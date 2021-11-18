@@ -4,7 +4,7 @@ import { LogRewardPerSecond } from '../../generated/templates/CloneRewarderTime/
 import { getRewarder } from '../entities'
 
 export function logRewardPerSecond(event: LogRewardPerSecond): void {
-  log.info('[MasterChefV2:Rewarder] Log Reward Per Second {}', [
+  log.info('[FinaMasterV2:Rewarder] Log Reward Per Second {}', [
     event.params.rewardPerSecond.toString()
   ])
 

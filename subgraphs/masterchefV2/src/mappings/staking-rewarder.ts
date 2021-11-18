@@ -5,7 +5,7 @@ import { RewardAdded } from '../../generated/templates/StakingRewardsFina/Stakin
 import { getRewarder } from '../entities'
 
 export function rewardAdded(event: RewardAdded): void {
-  log.info('[MasterChefV2:StakingRewarder] Log Reward Added {}', [
+  log.info('[FinaMasterV2:StakingRewarder] Log Reward Added {}', [
     event.params.reward.toString()
   ])
   const rewarderContract = StakingRewardsContract.bind(event.address)

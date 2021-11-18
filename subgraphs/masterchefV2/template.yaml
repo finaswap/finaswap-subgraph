@@ -1,29 +1,29 @@
 specVersion: 0.0.3
-description: MasterChefV2
+description: FinaMasterV2
 repository: https://github.com/finaswap/finaswap-subgraph
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: MasterChefV2
+    name: FinaMasterV2
     network: {{ network }}
     source:
       address: '{{ address }}'
-      abi: MasterChefV2
+      abi: FinaMasterV2
       startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
-      file: ./src/mappings/masterchefV2.ts
+      file: ./src/mappings/finamasterV2.ts
       entities:
-        - MasterChefV2
+        - FinaMasterV2
         - Pool
         - User
         - Rewarder
       abis:
-        - name: MasterChefV2
-          file: ./packages/abis/MasterChefV2.json
+        - name: FinaMasterV2
+          file: ./packages/abis/FinaMasterV2.json
         - name: ConvexRewarder
           file: ./packages/abis/ConvexRewarder.json
         - name: ComplexRewarder

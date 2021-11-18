@@ -1,5 +1,5 @@
 {
-    "name": "masterchefV2",
+    "name": "finamasterV2",
     "private": true,
     "license": "MIT",
     "version": "1.0.0",
@@ -11,7 +11,7 @@
         "remove-local": "graph remove --node http://localhost:8020/ /finaswap/finaswap",
         "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /finaswap/finaswap",
 
-        "deploy:mainnet": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ finaswap/master-chefv2 subgraph.yaml",
+        "deploy:mainnet": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ finaswap/finamasterv2 subgraph.yaml",
 
         "prepare:mainnet": "mustache config/mainnet.json template.yaml > subgraph.yaml",
         "prepare:xdai": "."

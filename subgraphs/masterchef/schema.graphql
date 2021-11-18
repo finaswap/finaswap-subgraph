@@ -59,7 +59,7 @@ type MasterChef @entity {
 }
 
 type History @entity {
-  # Master chef id concatenated with timestamp
+  # Fina chef id concatenated with timestamp
   id: ID!
 
   # Owner (MasterChef, Pool, or User).

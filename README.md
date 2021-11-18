@@ -19,7 +19,7 @@ Current subgraph locations:
    + https://thegraph.com/explorer/subgraph/finaswap/avalanche-exchange (avalanche)
    + https://fina.graph.t.hmny.io/subgraphs/name/finaswap/harmony-exchange (harmony)
 
-2. **Master Chef**: Indexes all MasterChef staking data: https://thegraph.com/explorer/subgraph/finaswap/master-chef
+2. **Fina Master**: Indexes all FinaMaster staking data: https://thegraph.com/explorer/subgraph/finaswap/finamaster
 
 3. **Fina Chief**: Indexes the FinaChief contract, that handles the serving of exchange fees to the FinaLounge: https://thegraph.com/explorer/subgraph/finaswap/fina-maker
 
@@ -31,7 +31,7 @@ Current subgraph locations:
 
 7. **BentoBox**: Indexes BentoBox and Kashi Lending data: https://thegraph.com/explorer/subgraph/finaswap/bentobox
 
-8. **MiniChef**: Indexes MiniChef contracts that are used in place of MasterChefs for alternate networks:
+8. **MiniChef**: Indexes MiniChef contracts that are used in place of FinaMasters for alternate networks:
   + https://thegraph.com/explorer/subgraph/finaswap/matic-minichef
 
 ## To setup and deploy
@@ -100,4 +100,4 @@ We will add to this as development progresses.
 # Community Subgraphs
 
 1) croco-finance fork of this repo with slight modifications - [deployment](https://thegraph.com/explorer/subgraph/benesjan/fina-swap), [code](https://github.com/croco-finance/finaswap-subgraph)
-2) croco-finance dex-rewards-subgraph which tracks SLPs in MasterChef and all the corresponding rewards individually. (can be used for analysis of user's positions) - [deployment](https://thegraph.com/explorer/subgraph/benesjan/dex-rewards-subgraph), [code](https://github.com/croco-finance/dex-rewards-subgraph)
+2) croco-finance dex-rewards-subgraph which tracks SLPs in FinaMaster and all the corresponding rewards individually. (can be used for analysis of user's positions) - [deployment](https://thegraph.com/explorer/subgraph/benesjan/dex-rewards-subgraph), [code](https://github.com/croco-finance/dex-rewards-subgraph)

@@ -1,13 +1,13 @@
 {
-    "name": "masterchef",
+    "name": "finamaster",
     "license": "MIT",
     "version": "1.0.0",
     "author": "FinaSwap",
     "scripts": {
         "codegen": "graph codegen subgraph.yaml",
         "build": "graph build subgraph.yaml",
-        "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ finaswap/master-chef subgraph.yaml",
-        "deploy-studio": "graph deploy --studio fina---masterchef",
+        "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ finaswap/finamaster subgraph.yaml",
+        "deploy-studio": "graph deploy --studio fina---finamaster",
         "create-local": "graph create --node http://localhost:8020/ /finaswap/finaswap",
         "remove-local": "graph remove --node http://localhost:8020/ /finaswap/finaswap",
         "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /finaswap/finaswap",

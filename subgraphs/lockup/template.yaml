@@ -5,11 +5,11 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: MasterChef
+    name: FinaMaster
     network: {{ network }}
     source:
       address: '{{ address }}'
-      abi: MasterChef
+      abi: FinaMaster
       startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
@@ -20,8 +20,8 @@ dataSources:
         - Pool
         - User
       abis:
-        - name: MasterChef
-          file: ../../node_modules/@finaswap/core/build/abi/MasterChef.json
+        - name: FinaMaster
+          file: ../../node_modules/@finaswap/core/build/abi/FinaMaster.json
         - name: Pair
           file: ../../node_modules/@finaswap/core/build/abi/UniswapV2Pair.json
       eventHandlers:

@@ -1,29 +1,29 @@
 specVersion: 0.0.3
-description: Masterchef
+description: FinaMaster
 repository: https://github.com/finaswap/finaswap-subgraph
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: MasterChef
+    name: FinaMaster
     network: {{ network }}
     source:
       address: '{{ address }}'
-      abi: MasterChef
+      abi: FinaMaster
       startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - MasterChef
+        - FinaMaster
         - History
         - Pool
         - PoolHistory
         - User
       abis:
-        - name: MasterChef
-          file: ../../node_modules/@finaswap/core/build/abi/MasterChef.json
+        - name: FinaMaster
+          file: ../../node_modules/@finaswap/core/build/abi/FinaMaster.json
         - name: Factory
           file: ../../node_modules/@finaswap/core/build/abi/UniswapV2Factory.json
         - name: Pair
@@ -54,4 +54,4 @@ dataSources:
           handler: migrate
         - function: dev(address)
           handler: dev
-      file: ./src/masterchef.ts
+      file: ./src/finamaster.ts

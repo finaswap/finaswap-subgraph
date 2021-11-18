@@ -4,14 +4,14 @@ import {
   DevCall,
   EmergencyWithdraw,
   MassUpdatePoolsCall,
-  MasterChef as MasterChefContract,
+  FinaMaster as FinaMasterContract,
   MigrateCall,
   OwnershipTransferred,
   SetCall,
   SetMigratorCall,
   UpdatePoolCall,
   Withdraw,
-} from '../generated/MasterChef/MasterChef'
+} from '../generated/FinaMaster/FinaMaster'
 import { Address, BigDecimal, BigInt, dataSource, ethereum, log } from '@graphprotocol/graph-ts'
 import {
   BIG_DECIMAL_1E12,
@@ -20,56 +20,56 @@ import {
   BIG_INT_ONE,
   BIG_INT_ONE_DAY_SECONDS,
   BIG_INT_ZERO,
-  MASTER_CHEF_ADDRESS,
-  MASTER_CHEF_START_BLOCK,
+  FINA_MASTER_ADDRESS,
+  FINA_MASTER_START_BLOCK,
 } from 'const'
-import { History, MasterChef, Pool, PoolHistory, User } from '../generated/schema'
+import { History, FinaMaster, Pool, PoolHistory, User } from '../generated/schema'
 import { getFinaPrice, getUSDRate } from 'pricing'
 
-import { ERC20 as ERC20Contract } from '../generated/MasterChef/ERC20'
-import { Pair as PairContract } from '../generated/MasterChef/Pair'
+import { ERC20 as ERC20Contract } from '../generated/FinaMaster/ERC20'
+import { Pair as PairContract } from '../generated/FinaMaster/Pair'
 
-function getMasterChef(block: ethereum.Block): MasterChef {
-  let masterChef = MasterChef.load(MASTER_CHEF_ADDRESS.toHex())
+function getFinaMaster(block: ethereum.Block): FinaMaster {
+  let finaMaster = FinaMaster.load(FINA_MASTER_ADDRESS.toHex())
 
-  if (masterChef === null) {
-    const contract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
-    masterChef = new MasterChef(MASTER_CHEF_ADDRESS.toHex())
-    masterChef.bonusMultiplier = contract.BONUS_MULTIPLIER()
-    masterChef.bonusEndBlock = contract.bonusEndBlock()
-    masterChef.devaddr = contract.devaddr()
-    masterChef.migrator = contract.migrator()
-    masterChef.owner = contract.owner()
+  if (finaMaster === null) {
+    const contract = FinaMasterContract.bind(FINA_MASTER_ADDRESS)
+    finaMaster = new FinaMaster(FINA_MASTER_ADDRESS.toHex())
+    finaMaster.bonusMultiplier = contract.BONUS_MULTIPLIER()
+    finaMaster.bonusEndBlock = contract.bonusEndBlock()
+    finaMaster.devaddr = contract.devaddr()
+    finaMaster.migrator = contract.migrator()
+    finaMaster.owner = contract.owner()
     // poolInfo ...
-    masterChef.startBlock = contract.startBlock()
-    masterChef.fina = contract.fina()
-    masterChef.finaPerBlock = contract.finaPerBlock()
-    masterChef.totalAllocPoint = contract.totalAllocPoint()
+    finaMaster.startBlock = contract.startBlock()
+    finaMaster.fina = contract.fina()
+    finaMaster.finaPerBlock = contract.finaPerBlock()
+    finaMaster.totalAllocPoint = contract.totalAllocPoint()
     // userInfo ...
-    masterChef.poolCount = BIG_INT_ZERO
+    finaMaster.poolCount = BIG_INT_ZERO
 
-    masterChef.slpBalance = BIG_DECIMAL_ZERO
-    masterChef.slpAge = BIG_DECIMAL_ZERO
-    masterChef.slpAgeRemoved = BIG_DECIMAL_ZERO
-    masterChef.slpDeposited = BIG_DECIMAL_ZERO
-    masterChef.slpWithdrawn = BIG_DECIMAL_ZERO
+    finaMaster.slpBalance = BIG_DECIMAL_ZERO
+    finaMaster.slpAge = BIG_DECIMAL_ZERO
+    finaMaster.slpAgeRemoved = BIG_DECIMAL_ZERO
+    finaMaster.slpDeposited = BIG_DECIMAL_ZERO
+    finaMaster.slpWithdrawn = BIG_DECIMAL_ZERO
 
-    masterChef.updatedAt = block.timestamp
+    finaMaster.updatedAt = block.timestamp
 
-    masterChef.save()
+    finaMaster.save()
   }
 
-  return masterChef as MasterChef
+  return finaMaster as FinaMaster
 }
 
 export function getPool(id: BigInt, block: ethereum.Block): Pool {
   let pool = Pool.load(id.toString())
 
   if (pool === null) {
-    const masterChef = getMasterChef(block)
+    const finaMaster = getFinaMaster(block)
 
-    const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
-    const poolLength = masterChefContract.poolLength()
+    const finaMasterContract = FinaMasterContract.bind(FINA_MASTER_ADDRESS)
+    const poolLength = finaMasterContract.poolLength()
 
     if (id >= poolLength) {
       return null
@@ -79,9 +79,9 @@ export function getPool(id: BigInt, block: ethereum.Block): Pool {
     pool = new Pool(id.toString())
 
     // Set relation
-    pool.owner = masterChef.id
+    pool.owner = finaMaster.id
 
-    const poolInfo = masterChefContract.poolInfo(masterChef.poolCount)
+    const poolInfo = finaMasterContract.poolInfo(finaMaster.poolCount)
 
     pool.pair = poolInfo.value0
     pool.allocPoint = poolInfo.value1
@@ -185,21 +185,21 @@ export function getUser(pid: BigInt, address: Address, block: ethereum.Block): U
 }
 
 export function add(event: AddCall): void {
-  const masterChef = getMasterChef(event.block)
+  const finaMaster = getFinaMaster(event.block)
 
-  log.info('Add pool #{}', [masterChef.poolCount.toString()])
+  log.info('Add pool #{}', [finaMaster.poolCount.toString()])
 
-  const pool = getPool(masterChef.poolCount, event.block)
+  const pool = getPool(finaMaster.poolCount, event.block)
 
   if (pool === null) {
-    log.error('Pool added with id greater than poolLength, pool #{}', [masterChef.poolCount.toString()])
+    log.error('Pool added with id greater than poolLength, pool #{}', [finaMaster.poolCount.toString()])
     return
   }
 
-  // Update MasterChef.
-  masterChef.totalAllocPoint = masterChef.totalAllocPoint.plus(pool.allocPoint)
-  masterChef.poolCount = masterChef.poolCount.plus(BIG_INT_ONE)
-  masterChef.save()
+  // Update FinaMaster.
+  finaMaster.totalAllocPoint = finaMaster.totalAllocPoint.plus(pool.allocPoint)
+  finaMaster.poolCount = finaMaster.poolCount.plus(BIG_INT_ONE)
+  finaMaster.save()
 }
 
 // Calls
@@ -212,11 +212,11 @@ export function set(call: SetCall): void {
 
   const pool = getPool(call.inputs._pid, call.block)
 
-  const masterChef = getMasterChef(call.block)
+  const finaMaster = getFinaMaster(call.block)
 
-  // Update masterchef
-  masterChef.totalAllocPoint = masterChef.totalAllocPoint.plus(call.inputs._allocPoint.minus(pool.allocPoint))
-  masterChef.save()
+  // Update finamaster
+  finaMaster.totalAllocPoint = finaMaster.totalAllocPoint.plus(call.inputs._allocPoint.minus(pool.allocPoint))
+  finaMaster.save()
 
   // Update pool
   pool.allocPoint = call.inputs._allocPoint
@@ -226,17 +226,17 @@ export function set(call: SetCall): void {
 export function setMigrator(call: SetMigratorCall): void {
   log.info('Set migrator to {}', [call.inputs._migrator.toHex()])
 
-  const masterChef = getMasterChef(call.block)
-  masterChef.migrator = call.inputs._migrator
-  masterChef.save()
+  const finaMaster = getFinaMaster(call.block)
+  finaMaster.migrator = call.inputs._migrator
+  finaMaster.save()
 }
 
 export function migrate(call: MigrateCall): void {
-  const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
+  const finaMasterContract = FinaMasterContract.bind(FINA_MASTER_ADDRESS)
 
   const pool = getPool(call.inputs._pid, call.block)
 
-  const poolInfo = masterChefContract.poolInfo(call.inputs._pid)
+  const poolInfo = finaMasterContract.poolInfo(call.inputs._pid)
 
   const pair = poolInfo.value0
 
@@ -244,7 +244,7 @@ export function migrate(call: MigrateCall): void {
 
   pool.pair = pair
 
-  const balance = pairContract.balanceOf(MASTER_CHEF_ADDRESS)
+  const balance = pairContract.balanceOf(FINA_MASTER_ADDRESS)
 
   pool.balance = balance
 
@@ -258,8 +258,8 @@ export function massUpdatePools(call: MassUpdatePoolsCall): void {
 export function updatePool(call: UpdatePoolCall): void {
   log.info('Update pool id {}', [call.inputs._pid.toString()])
 
-  const masterChef = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
-  const poolInfo = masterChef.poolInfo(call.inputs._pid)
+  const finaMaster = FinaMasterContract.bind(FINA_MASTER_ADDRESS)
+  const poolInfo = finaMaster.poolInfo(call.inputs._pid)
   const pool = getPool(call.inputs._pid, call.block)
   pool.lastRewardBlock = poolInfo.value2
   pool.accFinaPerShare = poolInfo.value3
@@ -269,11 +269,11 @@ export function updatePool(call: UpdatePoolCall): void {
 export function dev(call: DevCall): void {
   log.info('Dev changed to {}', [call.inputs._devaddr.toHex()])
 
-  const masterChef = getMasterChef(call.block)
+  const finaMaster = getFinaMaster(call.block)
 
-  masterChef.devaddr = call.inputs._devaddr
+  finaMaster.devaddr = call.inputs._devaddr
 
-  masterChef.save()
+  finaMaster.save()
 }
 
 // Events
@@ -293,16 +293,16 @@ export function deposit(event: Deposit): void {
     event.params.pid.toString(),
   ])*/
 
-  const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
+  const finaMasterContract = FinaMasterContract.bind(FINA_MASTER_ADDRESS)
 
-  const poolInfo = masterChefContract.poolInfo(event.params.pid)
+  const poolInfo = finaMasterContract.poolInfo(event.params.pid)
 
   const pool = getPool(event.params.pid, event.block)
 
   const poolHistory = getPoolHistory(pool, event.block)
 
   const pairContract = PairContract.bind(poolInfo.value0)
-  pool.balance = pairContract.balanceOf(MASTER_CHEF_ADDRESS)
+  pool.balance = pairContract.balanceOf(FINA_MASTER_ADDRESS)
 
   pool.lastRewardBlock = poolInfo.value2
   pool.accFinaPerShare = poolInfo.value3
@@ -315,7 +315,7 @@ export function deposit(event: Deposit): void {
 
   pool.updatedAt = event.block.timestamp
 
-  const userInfo = masterChefContract.userInfo(event.params.pid, event.params.user)
+  const userInfo = finaMasterContract.userInfo(event.params.pid, event.params.user)
 
   const user = getUser(event.params.pid, event.params.user, event.block)
 
@@ -326,7 +326,7 @@ export function deposit(event: Deposit): void {
   }
 
   // Calculate FNA being paid out
-  if (event.block.number.gt(MASTER_CHEF_START_BLOCK) && user.amount.gt(BIG_INT_ZERO)) {
+  if (event.block.number.gt(FINA_MASTER_START_BLOCK) && user.amount.gt(BIG_INT_ZERO)) {
     const pending = user.amount
       .toBigDecimal()
       .times(pool.accFinaPerShare.toBigDecimal())
@@ -410,20 +410,20 @@ export function deposit(event: Deposit): void {
   user.save()
   pool.save()
 
-  const masterChef = getMasterChef(event.block)
+  const finaMaster = getFinaMaster(event.block)
 
-  const masterChefDays = event.block.timestamp.minus(masterChef.updatedAt).divDecimal(BigDecimal.fromString('86400'))
-  masterChef.slpAge = masterChef.slpAge.plus(masterChefDays.times(masterChef.slpBalance))
+  const finaMasterDays = event.block.timestamp.minus(finaMaster.updatedAt).divDecimal(BigDecimal.fromString('86400'))
+  finaMaster.slpAge = finaMaster.slpAge.plus(finaMasterDays.times(finaMaster.slpBalance))
 
-  masterChef.slpDeposited = masterChef.slpDeposited.plus(amount)
-  masterChef.slpBalance = masterChef.slpBalance.plus(amount)
+  finaMaster.slpDeposited = finaMaster.slpDeposited.plus(amount)
+  finaMaster.slpBalance = finaMaster.slpBalance.plus(amount)
 
-  masterChef.updatedAt = event.block.timestamp
-  masterChef.save()
+  finaMaster.updatedAt = event.block.timestamp
+  finaMaster.save()
 
-  const history = getHistory(MASTER_CHEF_ADDRESS.toHex(), event.block)
-  history.slpAge = masterChef.slpAge
-  history.slpBalance = masterChef.slpBalance
+  const history = getHistory(FINA_MASTER_ADDRESS.toHex(), event.block)
+  history.slpAge = finaMaster.slpAge
+  history.slpBalance = finaMaster.slpBalance
   history.slpDeposited = history.slpDeposited.plus(amount)
   history.save()
 
@@ -450,16 +450,16 @@ export function withdraw(event: Withdraw): void {
   //   event.params.pid.toString(),
   // ])
 
-  const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
+  const finaMasterContract = FinaMasterContract.bind(FINA_MASTER_ADDRESS)
 
-  const poolInfo = masterChefContract.poolInfo(event.params.pid)
+  const poolInfo = finaMasterContract.poolInfo(event.params.pid)
 
   const pool = getPool(event.params.pid, event.block)
 
   const poolHistory = getPoolHistory(pool, event.block)
 
   const pairContract = PairContract.bind(poolInfo.value0)
-  pool.balance = pairContract.balanceOf(MASTER_CHEF_ADDRESS)
+  pool.balance = pairContract.balanceOf(FINA_MASTER_ADDRESS)
   pool.lastRewardBlock = poolInfo.value2
   pool.accFinaPerShare = poolInfo.value3
 
@@ -474,7 +474,7 @@ export function withdraw(event: Withdraw): void {
 
   const user = getUser(event.params.pid, event.params.user, event.block)
 
-  if (event.block.number.gt(MASTER_CHEF_START_BLOCK) && user.amount.gt(BIG_INT_ZERO)) {
+  if (event.block.number.gt(FINA_MASTER_START_BLOCK) && user.amount.gt(BIG_INT_ZERO)) {
     const pending = user.amount
       .toBigDecimal()
       .times(pool.accFinaPerShare.toBigDecimal())
@@ -501,7 +501,7 @@ export function withdraw(event: Withdraw): void {
     }
   }
 
-  const userInfo = masterChefContract.userInfo(event.params.pid, event.params.user)
+  const userInfo = finaMasterContract.userInfo(event.params.pid, event.params.user)
 
   user.amount = userInfo.value0
   user.rewardDebt = userInfo.value1
@@ -559,23 +559,23 @@ export function withdraw(event: Withdraw): void {
   user.save()
   pool.save()
 
-  const masterChef = getMasterChef(event.block)
+  const finaMaster = getFinaMaster(event.block)
 
-  const days = event.block.timestamp.minus(masterChef.updatedAt).divDecimal(BigDecimal.fromString('86400'))
-  const slpAge = masterChef.slpAge.plus(days.times(masterChef.slpBalance))
-  const slpAgeRemoved = slpAge.div(masterChef.slpBalance).times(amount)
-  masterChef.slpAge = slpAge.minus(slpAgeRemoved)
-  masterChef.slpAgeRemoved = masterChef.slpAgeRemoved.plus(slpAgeRemoved)
+  const days = event.block.timestamp.minus(finaMaster.updatedAt).divDecimal(BigDecimal.fromString('86400'))
+  const slpAge = finaMaster.slpAge.plus(days.times(finaMaster.slpBalance))
+  const slpAgeRemoved = slpAge.div(finaMaster.slpBalance).times(amount)
+  finaMaster.slpAge = slpAge.minus(slpAgeRemoved)
+  finaMaster.slpAgeRemoved = finaMaster.slpAgeRemoved.plus(slpAgeRemoved)
 
-  masterChef.slpWithdrawn = masterChef.slpWithdrawn.plus(amount)
-  masterChef.slpBalance = masterChef.slpBalance.minus(amount)
-  masterChef.updatedAt = event.block.timestamp
-  masterChef.save()
+  finaMaster.slpWithdrawn = finaMaster.slpWithdrawn.plus(amount)
+  finaMaster.slpBalance = finaMaster.slpBalance.minus(amount)
+  finaMaster.updatedAt = event.block.timestamp
+  finaMaster.save()
 
-  const history = getHistory(MASTER_CHEF_ADDRESS.toHex(), event.block)
-  history.slpAge = masterChef.slpAge
+  const history = getHistory(FINA_MASTER_ADDRESS.toHex(), event.block)
+  history.slpAge = finaMaster.slpAge
   history.slpAgeRemoved = history.slpAgeRemoved.plus(slpAgeRemoved)
-  history.slpBalance = masterChef.slpBalance
+  history.slpBalance = finaMaster.slpBalance
   history.slpWithdrawn = history.slpWithdrawn.plus(amount)
   history.save()
 
@@ -597,7 +597,7 @@ export function emergencyWithdraw(event: EmergencyWithdraw): void {
   const pool = getPool(event.params.pid, event.block)
 
   const pairContract = PairContract.bind(pool.pair as Address)
-  pool.balance = pairContract.balanceOf(MASTER_CHEF_ADDRESS)
+  pool.balance = pairContract.balanceOf(FINA_MASTER_ADDRESS)
   pool.save()
 
   // Update user
