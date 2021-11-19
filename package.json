@@ -21,7 +21,7 @@
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.21.1",
     "@graphprotocol/graph-ts": "^0.20.0",
-    "@finaswap/core": "1.0.4",
+    "@finaswap/core": "1.0.5",
     "@sushiswap/prettier-config": "^0.1.0",
     "@typescript-eslint/eslint-plugin": "^4.0.0",
     "@typescript-eslint/parser": "^4.0.0",
